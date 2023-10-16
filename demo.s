@@ -84,37 +84,92 @@ nmi:
 @loop:	lda hello, x 	; Load the hello message into SPR-RAM
   sta $2004
   inx
-  cpx #$1c
+  cpx #$32
   bne @loop
   rti
 
 hello:
-  .byte $00, $00, $00, $00 	; Why do I need these here?
-  .byte $00, $00, $00, $00
-  .byte $6c, $00, $00, $6c
-  .byte $6c, $01, $00, $76
-  .byte $6c, $02, $00, $80
-  .byte $6c, $04, $00, $8A
-  .byte $6c, $03, $00, $94
-  .byte $6c, $04, $00, $99
+; Y position, byte location, pallete?, X position
+  .byte $10, $00, $12, $10 	; Why do I need these here?
+  .byte $6c, $00, $12, $6c
+  .byte $6c, $01, $12, $76
+  .byte $6c, $02, $12, $80
+  .byte $6c, $03, $12, $8A
+  .byte $6c, $04, $12, $94
+  .byte $6c, $03, $12, $A0
+  .byte $6c, $03, $12, $A8
 
 palettes:
   ; Background Palette
-  .byte $0f, $0f, $0f, $0f
-  .byte $0f, $0f, $0f, $0f
-  .byte $0f, $0f, $0f, $0f
-  .byte $0f, $0f, $0f, $0f
+  .byte $01, $02, $03, $04
+  .byte $05, $06, $07, $08
+  .byte $09, $0A, $0B, $0C
+  .byte $0D, $0E, $0F, $00
 
 
   ; Sprite Palette
-  .byte $0f, $20, $00, $00
-  .byte $0f, $00, $00, $00
-  .byte $0f, $00, $00, $00
-  .byte $0f, $00, $00, $00
+  .byte $0D, $0E, $0F, $00    
+  .byte $09, $0A, $0B, $0C
+  .byte $05, $06, $07, $08
+  .byte $01, $02, $03, $04
 
 ; Character memory
 .segment "CHARS"
-  .byte %11000011	; H (00)
+;  .byte %00000000	; 0 (00)
+
+  .byte %00111100	; 0 (00)
+  .byte %01100110
+  .byte %01001110
+  .byte %01011010
+  .byte %01011010
+  .byte %01110010
+  .byte %01100010
+  .byte %00111100
+  .byte $00, $00, $00, $00, $00, $00, $00, $00 ;added to upper(LSB)
+
+  .byte %00001100	; 1 (00)
+  .byte %00011100
+  .byte %00111100
+  .byte %01101100
+  .byte %00001100
+  .byte %00001100
+  .byte %00001100
+  .byte %01111110
+  .byte $00, $00, $00, $00, $00, $00, $00, $00 ;added to upper(LSB)
+
+  .byte %00111100 ; 2
+  .byte %01100110
+  .byte %00000110
+  .byte %00001100
+  .byte %00011000
+  .byte %00110000
+  .byte %01100000
+  .byte %01111110
+  .byte $00, $00, $00, $00, $00, $00, $00, $00 
+
+  .byte %00011000 ;|
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte %00011000
+  .byte $00, $00, $00, $00, $00, $00, $00, $00 
+
+  .byte %10111101 ; | || |
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte %10111101
+  .byte $00, $00, $00, $00, $00, $00, $00, $00 
+
+  .byte %11000011	; H (0A)
   .byte %11000011
   .byte %11000011
   .byte %11000011
@@ -124,7 +179,7 @@ palettes:
   .byte %11000011
   .byte $00, $00, $00, $00, $00, $00, $00, $00
 
-  .byte %11111111	; E (01)
+  .byte %11111111	; E (0B)
   .byte %11111111
   .byte %11000000
   .byte %11111100
@@ -134,7 +189,7 @@ palettes:
   .byte %11111111
   .byte $00, $00, $00, $00, $00, $00, $00, $00
 
-  .byte %11000000	; L (02)
+  .byte %11000000	; L (0C)
   .byte %11000000
   .byte %11000000
   .byte %11000000
@@ -144,7 +199,7 @@ palettes:
   .byte %11111111
   .byte $00, $00, $00, $00, $00, $00, $00, $00
 
-  .byte %01111110	; O (03)
+  .byte %01111110	; O (0D)
   .byte %11100111
   .byte %11000011
   .byte %11000011
@@ -154,7 +209,7 @@ palettes:
   .byte %01111110
   .byte $00, $00, $00, $00, $00, $00, $00, $00
 
-  .byte %11000011	; N (04)
+  .byte %11000011	; N (0E)
   .byte %11100011
   .byte %11110011
   .byte %11011011
@@ -163,3 +218,4 @@ palettes:
   .byte %11000111
   .byte %11000011
   .byte $00, $00, $00, $00, $00, $00, $00, $00
+
