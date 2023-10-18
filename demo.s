@@ -1,8 +1,12 @@
 .segment "HEADER"
   ; .byte "NES", $1A      ; iNES header identifier
+  ; 6502 uses 2 registers internally, X and Y, one byte each in size
+  ;inx add 1 to x, dex substract 1 from x
+  ;rts - return to subrotine
+
   .byte $4E, $45, $53, $1A
   .byte 2               ; 2x 16KB PRG code
-  .byte 1               ; 1x  8KB CHR data
+  .byte 2               ; 1x  8KB CHR data
   .byte $01, $00        ; mapper 0, vertical mirroring
 
 .segment "VECTORS"
@@ -18,6 +22,7 @@
 
 ; Main code segment for the program
 .segment "CODE"
+
 
 reset:
   sei		; disable IRQs
