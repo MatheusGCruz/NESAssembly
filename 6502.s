@@ -4,6 +4,15 @@
 ; # declares a constant
 
 ;6502 notable registers: A (accumulator), X, Y 
+; PC program counter, register the next operation/instruction
+; PC uses 16 bit address
+; some operations dont need addressing ( implicit)
+; some needs only 1 byte of adress (zero pages)
+; some needs the full address
+
+;P Process status - has 8 bits
+
+
 
 inc $00 ; increments the value on $00 adress
 inx ; increments x
@@ -32,6 +41,13 @@ sta $02 ; stores the value of the accumulator on $02 address
 
 inc $00 ;
 inc $0300 ; 
+
+cmp $00 ; compares one value with the value in the accumulator
+; returns carry_flag = 1 when the acumulator is greater or equal, carry_flag = 0 else
+bcc sub_rotine; Changes the PC value for the sub_routine address
+jsr ;
+
+
 
 ;immediate addressing - # follow by the value (#$E8) - only works with single bytes
 ;ZeroPage Addressing - adding a 8bit operand to the instruction (stx $00) , operates faster
